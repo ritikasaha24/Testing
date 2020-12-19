@@ -1,0 +1,21 @@
+version: "2"
+services:
+  execute-test:
+    image: selenium/hub
+    container_name: execute-test
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome
+    depends_on:
+      - execute-test
+    environment:
+      - HUB_HOST=execute-test
+      - HUB_PORT=4444
+  firefox:
+    image: selenium/node-firefox
+    depends_on:
+      - execute-test
+    environment:
+      - HUB_HOST=execute-tests
+      - HUB_PORT=4444
